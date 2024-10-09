@@ -21,21 +21,23 @@ payload = {
     'input_mask': encoded_mask_image
 }
 
-
-print("payload ",payload)
-
-
-
-exit()
-
 # URL of the model server (replace with your actual endpoint)
 url = 'http://your-model-server-url/predict'
 
-basten_url= ""
-BASTEN_API_KEY = ""
+basten_url=  "https://model-jwdpzemw.api.baseten.co/development/predict"
+BASTEN_KEY = "WEybDw5C.K6e7hU7imtOcBHKBuRK9yke512Mw6cFD"
+
 
 # Send the POST request
-response = requests.post(url, json=payload)
+payload
+
+response = requests.post(
+    basten_url,
+    headers={"Authorization": f"Api-Key {BASTEN_KEY}"},
+    json=payload,
+)
+
+print("response ",response)
 
 # Print the server's response
 if response.status_code == 200:

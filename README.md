@@ -10,7 +10,7 @@ Image ![screenshot](./input_image.png)
 Image ![screenshot](./mask_image.png)
 
 ## Lama Result from API 
-Image ![screenshot](./mask_image.png)
+Image ![screenshot](./lama_output_0.png)
 
 
 ```python 
@@ -39,6 +39,8 @@ payload = {
 
 basten_url=  ""
 BASTEN_KEY = ""
+
+
 
 # Send the POST request
 payload

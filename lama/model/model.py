@@ -78,18 +78,15 @@ class Model:
             return {'error': str(e)}
 
         # Encode the images
-        encoded_output_images = []
-        for label, image in enumerate([result]):
-            print(f"Processing result image with label: {label}")
-            try:
-                buffered = BytesIO()
-                image.save(buffered, format='PNG')
-                encoded_image = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                encoded_output_images.append({
-                    'lama_result': encoded_image
-                })
-                print(f"Image with label '{label}' encoded successfully.")
-            except Exception as e:
-                print(f"Error encoding image with label '{label}':", e)
+        encoded_output_images = None
+    
+        try:
+            buffered = BytesIO()
+            result.save(buffered, format='PNG')
+            encoded_image = base64.b64encode(buffered.getvalue()).decode('utf-8')
+            encoded_output_images = encoded_image
+
+        except Exception as e:
+            print(f"Error encoding image with label '{label}':", e)
 
         return {'output_images': encoded_output_images}

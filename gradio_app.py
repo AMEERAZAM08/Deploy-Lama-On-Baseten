@@ -1,28 +1,19 @@
-# Deploy-Lama-On-Baseten
-
-# Steps
-[basten-process Truss](https://app.baseten.co/models/deploy)
-
-
-## Input Image 
-Image ![screenshot](./input_image.png)
-## Input Mask 
-Image ![screenshot](./mask_image.png)
-
-## Lama Result from API 
-Image ![screenshot](./lama_output.png)
-
-## Lama Gradio 
-Image ![screenshot](./gradio_screen.png)
-
-
-```python 
+import gradio as gr
 import base64
 import requests
 import os 
 from PIL import Image
-
 from io import BytesIO
+
+
+def process(input_image_editor):
+    image = input_image_editor['background']
+    mask = input_image_editor['layers'][0]
+    lama_result = call_api(image, mask)
+    return lama_result
+
+
+
 def encode_image_to_base64(pil_image):
     """Encodes a PIL image to base64 format."""
     buffered = BytesIO()
@@ -66,15 +57,36 @@ def call_api(image, mask):
         print(f"Error message: {response.text}")
         return None
 
-
-input_image = Image.open("./input_image.png")
-input_mask = Image.open("./mask_image.png")
-
-lama_result = call_api(input_image, input_mask)
-
-lama_result.save("lama_output.png")
+MARKDOWN = """
+# LAMA Inpainting API Baseten 🔥
+"""
 
 
-```
+with gr.Blocks() as demo:
+    gr.Markdown(MARKDOWN)
+    with gr.Row():
+        with gr.Column():
+            input_image_editor_component = gr.ImageEditor(
+                label='Image',
+                type='pil',
+                sources=["upload", "webcam"],
+                image_mode='RGB',
+                layers=False,
+                brush=gr.Brush(colors=["#FFFFFF"], color_mode="fixed"))
+            submit_button_component = gr.Button(
+                    value='Submit', variant='primary', scale=0)
+        with gr.Column():
+            output_image_component = gr.Image(
+                type='pil', image_mode='RGB', label='Generated image', format="png")
 
+    submit_button_component.click(
+        fn=process,
+        inputs=[
+            input_image_editor_component,
+        ],
+        outputs=[
+            output_image_component,
+        ]
+    )
 
+demo.launch(debug=False, show_error=True,share=True)

@@ -40,6 +40,8 @@ payload = {
 basten_url=  ""
 BASTEN_KEY = ""
 
+basten_url=  "https://model-jwdpzemw.api.baseten.co/development/predict"
+BASTEN_KEY = "WEybDw5C.K6e7hU7imtOcBHKBuRK9yke512Mw6cFD"
 
 
 # Send the POST request

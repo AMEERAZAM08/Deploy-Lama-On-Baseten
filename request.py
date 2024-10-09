@@ -1,5 +1,6 @@
 import base64
 import requests
+import os 
 
 # Function to encode an image file to base64
 def encode_image_to_base64(image_path):
@@ -21,11 +22,8 @@ payload = {
     'input_mask': encoded_mask_image
 }
 
-basten_url=  "https://model-jwdpzemw.api.baseten.co/development/predict"
-BASTEN_KEY = "WEybDw5C.K6e7hU7imtOcBHKBuRK9yke512Mw6cFD"
-
-# Send the POST request
-payload
+basten_url= os.getenv("url")
+BASTEN_KEY = os.getenv("KEY")
 
 response = requests.post(
     basten_url,

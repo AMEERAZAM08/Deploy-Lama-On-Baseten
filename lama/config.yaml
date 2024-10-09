@@ -8,8 +8,8 @@ requirements:
   - simple-lama-inpainting
 resources:
   accelerator: null
-  cpu: '16'
-  memory: 8Gi
+  cpu: '1'
+  memory: 16Gi
   use_gpu: false
 secrets: {}
 system_packages:

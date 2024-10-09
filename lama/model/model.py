@@ -32,7 +32,7 @@ class Model:
         self.simple_lama = SimpleLama()
 
 
-   def preprocess(self, request):
+    def preprocess(self, request):
         encoded_image = request.get('input_img', None)
         encoded_mask = request.get('input_img', None)
         print("Encoded image received:", encoded_image is not None)
@@ -69,9 +69,9 @@ class Model:
         input_img = model_input['input_img']
         mask_img = model_input['mask_img']
         try:
-            
+
             mask_img = mask_img.convert('L')
-            result = simple_lama(input_img, mask_img)
+            result = self.simple_lama(input_img, mask_img)
             print("Lama done successfully.")
         except Exception as e:
             print("Error during model inference:", e)

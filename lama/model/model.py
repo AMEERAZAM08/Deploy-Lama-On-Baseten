@@ -34,7 +34,7 @@ class Model:
 
     def preprocess(self, request):
         encoded_image = request.get('input_img', None)
-        encoded_mask = request.get('input_img', None)
+        encoded_mask = request.get('input_mask', None)
         print("Encoded image received:", encoded_image is not None)
         if encoded_image is not None or encoded_mask is None:
             try:

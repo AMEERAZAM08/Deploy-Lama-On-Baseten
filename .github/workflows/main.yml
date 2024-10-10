@@ -1,34 +1,36 @@
-name: Droid deploy truss
+name: Deploy Model with Truss
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+  push:
     branches:
-        - main
-    paths:
-        - '**/model.py'
-
+      - main  # Change to your preferred branch
 jobs:
-    truss_test:
-        if: ${{ github.triggering_actor == 'factory-droid' || github.triggering_actor == 'factory-droid[bot]'}}
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
+  deploy:
+    runs-on: ubuntu-latest
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                python-version: 3.11
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: Install dependencies (if any)
-              run: |
-                python -m pip install --upgrade pip
-                pip install git+https://github.com/basetenlabs/truss.git requests tenacity --upgrade
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  # Adjust as necessary
 
-            - name: Run tests
-              env:
-                BASETEN_API_KEY: ${{ secrets.API_KEY }}
-              run: python bin/test_truss_deploy.py
+      - name: Install dependencies (if any)
+        run: |
+          python -m pip install --upgrade pip
+          pip install git+https://github.com/basetenlabs/truss.git requests tenacity --upgrade
+
+      # - name: Package your model
+      #   run: truss init ./model-name  # Change ./model-name to your model's directory
+
+      - name: Deploy your model
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          truss push --api-key $API_KEY
+      - name: Run tests
+        env:
+          BASETEN_API_KEY: ${{ secrets.API_KEY }}
+        run: python bin/test_truss_deploy.py

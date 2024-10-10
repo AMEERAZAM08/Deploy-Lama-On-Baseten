@@ -25,11 +25,11 @@ jobs:
       # - name: Package your model
       #   run: truss init ./model-name  # Change ./model-name to your model's directory
 
-      - name: Deploy your model
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-        run: |
-          truss push --api-key $API_KEY
+      # - name: Deploy your model
+      #   env:
+      #     API_KEY: ${{ secrets.API_KEY }}
+      #   run: |
+      #     truss push --api-key $API_KEY
       - name: Run tests
         env:
           BASETEN_API_KEY: ${{ secrets.API_KEY }}

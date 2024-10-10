@@ -13,6 +13,7 @@ See https://truss.baseten.co/quickstart for more.
 
 Code done By AMEER AZAM
 for more contact at https://linktr.ee/ameerazam22
+
 """
 import base64
 from PIL import Image

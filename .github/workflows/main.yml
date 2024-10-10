@@ -7,7 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -30,7 +29,13 @@ jobs:
       #     API_KEY: ${{ secrets.API_KEY }}
       #   run: |
       #     truss push --api-key $API_KEY
-      - name: Run tests
+  
+
+
+  truss-Push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Pushing on Baseten
         env:
           BASETEN_API_KEY: ${{ secrets.API_KEY }}
         run: python bin/test_truss_deploy.py

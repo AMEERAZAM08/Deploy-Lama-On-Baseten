@@ -11,6 +11,7 @@ import yaml
 
 def truss_push():
     API_KEY = os.environ["API_KEY"]
+    print("API_KEY ",API_KEY)
     print("Pushing model...")
     with open("/home/runner/.trussrc", "w") as config_file:
         config_file.write(

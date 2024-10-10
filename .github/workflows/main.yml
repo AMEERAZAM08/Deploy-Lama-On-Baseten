@@ -26,5 +26,5 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
       - name: Export Key
         run: export API_KEY=API_KEY
-       - name: Push on Baseten
+      - name: Push on Baseten
         run: python bin/test_truss_deploy.py

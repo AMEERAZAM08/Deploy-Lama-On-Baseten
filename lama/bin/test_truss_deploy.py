@@ -13,7 +13,7 @@ def truss_push():
     API_KEY = os.environ["API_KEY"]
     print("API_KEY ",API_KEY)
     print("Pushing model...")
-    with open("/home/runner/.trussrc", "w") as config_file:
+    with open("./trussrc", "w+") as config_file:
         config_file.write(
             f"""[baseten]
         remote_provider = baseten

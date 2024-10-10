@@ -1,9 +1,32 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Deploy Model with Truss
+
+on:
+  push:
+    branches:
+      - main  # Change to your preferred branch
 jobs:
-  Explore-GitHub-Actions:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - run: pip install --upgrade truss
-      - run: truss push
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  # Adjust as necessary
+
+      - name: Install Truss CLI
+        run: pip install --upgrade truss
+
+      # - name: Package your model
+      #   run: truss init ./model-name  # Change ./model-name to your model's directory
+
+      - name: Deploy your model
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          truss push --api-key $API_KEY
+      - name: Watch for live reload workflow
+        run: truss watch
